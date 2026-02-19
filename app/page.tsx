@@ -8,6 +8,7 @@ import {
   MiniMap,
   ReactFlowProvider,
   useReactFlow,
+  BackgroundVariant, // Perbaikan: Impor BackgroundVariant untuk TypeScript
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
@@ -111,7 +112,7 @@ function FlowEditor() {
       position,
       data: { 
         label: `New ${type.charAt(0).toUpperCase() + type.slice(1)}`,
-        config: type === 'trigger' ? { cron: '* * * * *' } : { plugin: 'ssh_exec', command: '' }
+        config: type === 'trigger' ? { cron: '* * * * *' } : { plugin: 'ssh_exec', command: '' } //
       },
     };
     
@@ -128,7 +129,7 @@ function FlowEditor() {
           </div>
           <div>
             <h1 className="text-sm font-bold tracking-tight text-slate-800 leading-none">AUTOMATION V1.0</h1>
-            <p className="text-[10px] text-slate-400 font-medium mt-1 uppercase tracking-tighter">Workflow Orchestrator</p>
+            <p className="text-[10px] text-slate-400 font-medium mt-1 uppercase tracking-tighter text-center">Workflow Orchestrator</p>
           </div>
         </div>
         
@@ -178,12 +179,6 @@ function FlowEditor() {
               </div>
             </div>
           </div>
-          
-          <div className="mt-auto p-4 rounded-xl bg-slate-50 border border-slate-100">
-            <p className="text-[10px] text-slate-400 leading-relaxed">
-              <span className="font-bold text-slate-500">Pro Tip:</span> Connect nodes to define the execution flow of your automation script.
-            </p>
-          </div>
         </aside>
 
         {/* Canvas */}
@@ -201,7 +196,12 @@ function FlowEditor() {
             snapToGrid
             snapGrid={[15, 15]}
           >
-            <Background color="#e2e8f0" gap={30} variant="dots" />
+            {/* Perbaikan Utama: Menggunakan BackgroundVariant.Dots */}
+            <Background 
+              color="#e2e8f0" 
+              gap={30} 
+              variant={BackgroundVariant.Dots} 
+            />
             <Controls />
             <MiniMap 
               style={{ borderRadius: '12px', border: '1px solid #e2e8f0' }} 
@@ -211,7 +211,7 @@ function FlowEditor() {
         </main>
 
         {/* Sidebar Kanan: Configuration */}
-        <aside className="w-80 border-l bg-white p-6 overflow-y-auto shadow-[-1px_0_10px_rgba(0,0,0,0.02)]">
+        <aside className="w-80 border-l bg-white p-6 overflow-y-auto shadow-[-1px_0_10px_rgba(0,0,0,0.02)] z-10">
           <h2 className="mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Configuration</h2>
           
           {selectedNode ? (
@@ -236,7 +236,6 @@ function FlowEditor() {
                     value={selectedNode.data.config?.cron || ''} 
                     onChange={(e) => handleConfigChange('cron', e.target.value)}
                   />
-                  <p className="text-[9px] text-slate-400 italic">Example: 0 * * * * (Every hour)</p>
                 </div>
               )}
 
@@ -244,7 +243,7 @@ function FlowEditor() {
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-blue-600 uppercase tracking-wide">Execution Script</label>
                   <textarea 
-                    className="w-full px-4 py-2 bg-blue-50/30 border border-blue-100 rounded-lg text-sm font-mono outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all h-40 resize-none shadow-sm"
+                    className="w-full px-4 py-2 bg-blue-50/30 border border-blue-100 rounded-lg text-sm font-mono outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all h-40 resize-none shadow-sm text-left"
                     placeholder="#!/bin/bash..."
                     value={selectedNode.data.config?.command || ''} 
                     onChange={(e) => handleConfigChange('command', e.target.value)}
@@ -258,7 +257,7 @@ function FlowEditor() {
                 <MousePointer2 size={24} />
               </div>
               <p className="text-xs text-slate-400 font-medium px-6 leading-relaxed">
-                Select a block on the canvas to configure its execution parameters.
+                Pilih sebuah blok di canvas untuk mengatur konfigurasi eksekusinya.
               </p>
             </div>
           )}
