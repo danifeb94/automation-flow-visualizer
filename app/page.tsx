@@ -9,7 +9,7 @@ import {
   ReactFlowProvider,
   useReactFlow,
   BackgroundVariant,
-  Node, // Import Node untuk typing
+  Node, // Ditambahkan untuk typing yang kuat
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
@@ -30,7 +30,7 @@ import {
   Download
 } from 'lucide-react';
 
-// 1. Definisikan struktur data node agar TypeScript tidak bingung
+// 1. Definisikan interface data agar TypeScript tahu pasti apa isi node kita
 interface WorkflowNodeData {
   label: string;
   config?: {
@@ -38,7 +38,6 @@ interface WorkflowNodeData {
     command?: string;
     plugin?: string;
   };
-  [key: string]: any; // Allow for other dynamic data
 }
 
 function FlowEditor() {
@@ -52,7 +51,7 @@ function FlowEditor() {
     action: ActionNode,
   }), []);
 
-  // 2. Gunakan Type Casting agar TypeScript tahu data.label pasti string
+  // 2. Casting selectedNode agar TypeScript mengenali properti 'label'
   const selectedNode = nodes.find((node) => node.selected) as Node<WorkflowNodeData> | undefined;
 
   // --- Fitur Export ke JSON ---
@@ -121,7 +120,7 @@ function FlowEditor() {
       position,
       data: { 
         label: `New ${type.charAt(0).toUpperCase() + type.slice(1)}`,
-        config: type === 'trigger' ? { cron: '* * * * *' } : { plugin: 'ssh_exec', command: '' }
+        config: type === 'trigger' ? { cron: '* * * * *' } : { plugin: 'ssh_exec', command: '' } //
       },
     };
     
@@ -129,13 +128,13 @@ function FlowEditor() {
   }, [screenToFlowPosition, nodes, setNodes]);
 
   return (
-    <div className="flex h-screen w-screen flex-col bg-slate-50 text-slate-900 font-sans">
+    <div className="flex h-screen w-screen flex-col bg-slate-50 text-slate-900 font-sans text-center">
       <header className="flex h-14 items-center justify-between border-b bg-white px-6 shadow-sm z-10">
         <div className="flex items-center gap-3">
           <div className="bg-blue-600 p-1.5 rounded-lg text-white">
             <Settings2 size={18} />
           </div>
-          <div>
+          <div className="text-left">
             <h1 className="text-sm font-bold tracking-tight text-slate-800 leading-none">AUTOMATION V1.0</h1>
             <p className="text-[10px] text-slate-400 font-medium mt-1 uppercase tracking-tighter">Workflow Orchestrator</p>
           </div>
@@ -157,7 +156,7 @@ function FlowEditor() {
       <div className="flex flex-1 overflow-hidden">
         <aside className="w-64 border-r bg-white p-5 flex flex-col gap-6">
           <div>
-            <h2 className="mb-4 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Node Library</h2>
+            <h2 className="mb-4 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 text-left">Node Library</h2>
             <div className="space-y-3">
               <div 
                 className="group flex cursor-grab items-center gap-3 rounded-xl border border-slate-200 p-3 hover:border-amber-500 hover:shadow-md transition-all bg-white"
@@ -166,7 +165,7 @@ function FlowEditor() {
                 <div className="p-2 rounded-lg bg-amber-50 text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-colors">
                   <Database size={16} />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col text-left">
                   <span className="text-xs font-bold text-slate-700">Trigger</span>
                   <span className="text-[9px] text-slate-400 italic">Cron / Event</span>
                 </div>
@@ -179,7 +178,7 @@ function FlowEditor() {
                 <div className="p-2 rounded-lg bg-blue-50 text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors">
                   <Zap size={16} />
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col text-left">
                   <span className="text-xs font-bold text-slate-700">Action</span>
                   <span className="text-[9px] text-slate-400 italic">SSH / HTTP</span>
                 </div>
@@ -189,7 +188,7 @@ function FlowEditor() {
         </aside>
 
         <main className="flex-1 relative bg-[#f8fafc]">
-          <ReactFlow
+          <Reactflow
             nodes={nodes}
             edges={edges}
             onNodesChange={onNodesChange}
@@ -215,18 +214,18 @@ function FlowEditor() {
           </ReactFlow>
         </main>
 
-        <aside className="w-80 border-l bg-white p-6 overflow-y-auto">
-          <h2 className="mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Configuration</h2>
+        <aside className="w-80 border-l bg-white p-6 overflow-y-auto z-10">
+          <h2 className="mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 text-left">Configuration</h2>
           
           {selectedNode ? (
-            <div className="space-y-6">
+            <div className="space-y-6 text-left">
               <div className="space-y-2">
                 <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Display Name</label>
                 <input 
                   type="text" 
                   className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
-                  // 3. Tambahkan "as string" untuk memastikan tipe datanya benar
-                  value={(selectedNode.data.label as string) || ''} 
+                  // Perbaikan Krusial: Casting explisit ke string agar Vercel senang
+                  value={String(selectedNode.data.label || '')} 
                   onChange={(e) => handleLabelChange(e.target.value)}
                 />
               </div>
@@ -238,7 +237,7 @@ function FlowEditor() {
                     type="text" 
                     className="w-full px-4 py-2 bg-amber-50/30 border border-amber-100 rounded-lg text-sm font-mono outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition-all shadow-sm"
                     placeholder="* * * * *"
-                    value={(selectedNode.data.config?.cron as string) || ''} 
+                    value={String(selectedNode.data.config?.cron || '')} 
                     onChange={(e) => handleConfigChange('cron', e.target.value)}
                   />
                 </div>
@@ -250,7 +249,7 @@ function FlowEditor() {
                   <textarea 
                     className="w-full px-4 py-2 bg-blue-50/30 border border-blue-100 rounded-lg text-sm font-mono outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all h-40 resize-none shadow-sm"
                     placeholder="#!/bin/bash..."
-                    value={(selectedNode.data.config?.command as string) || ''} 
+                    value={String(selectedNode.data.config?.command || '')} 
                     onChange={(e) => handleConfigChange('command', e.target.value)}
                   />
                 </div>
