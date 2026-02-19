@@ -8,7 +8,8 @@ import {
   MiniMap,
   ReactFlowProvider,
   useReactFlow,
-  BackgroundVariant, // Perbaikan: Impor BackgroundVariant untuk TypeScript
+  BackgroundVariant,
+  Node, // Import Node untuk typing
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
@@ -29,20 +30,30 @@ import {
   Download
 } from 'lucide-react';
 
+// 1. Definisikan struktur data node agar TypeScript tidak bingung
+interface WorkflowNodeData {
+  label: string;
+  config?: {
+    cron?: string;
+    command?: string;
+    plugin?: string;
+  };
+  [key: string]: any; // Allow for other dynamic data
+}
+
 function FlowEditor() {
   const { 
     nodes, edges, onNodesChange, onEdgesChange, onConnect, setNodes, updateNodeData 
   } = useWorkflowStore();
   const { screenToFlowPosition } = useReactFlow();
 
-  // Mendaftarkan Custom Nodes
   const nodeTypes = useMemo(() => ({
     trigger: TriggerNode,
     action: ActionNode,
   }), []);
 
-  // Mencari node yang sedang diklik/dipilih user
-  const selectedNode = nodes.find((node) => node.selected);
+  // 2. Gunakan Type Casting agar TypeScript tahu data.label pasti string
+  const selectedNode = nodes.find((node) => node.selected) as Node<WorkflowNodeData> | undefined;
 
   // --- Fitur Export ke JSON ---
   const handleExport = () => {
@@ -74,7 +85,6 @@ function FlowEditor() {
     URL.revokeObjectURL(url);
   };
 
-  // --- Handlers untuk Properties Panel ---
   const handleLabelChange = (val: string) => {
     if (selectedNode) updateNodeData(selectedNode.id, { label: val });
   };
@@ -88,7 +98,6 @@ function FlowEditor() {
     }
   };
 
-  // --- Logika Drag & Drop ---
   const onDragStart = (event: React.DragEvent, nodeType: string) => {
     event.dataTransfer.setData('application/reactflow', nodeType);
     event.dataTransfer.effectAllowed = 'move';
@@ -112,7 +121,7 @@ function FlowEditor() {
       position,
       data: { 
         label: `New ${type.charAt(0).toUpperCase() + type.slice(1)}`,
-        config: type === 'trigger' ? { cron: '* * * * *' } : { plugin: 'ssh_exec', command: '' } //
+        config: type === 'trigger' ? { cron: '* * * * *' } : { plugin: 'ssh_exec', command: '' }
       },
     };
     
@@ -121,7 +130,6 @@ function FlowEditor() {
 
   return (
     <div className="flex h-screen w-screen flex-col bg-slate-50 text-slate-900 font-sans">
-      {/* Header */}
       <header className="flex h-14 items-center justify-between border-b bg-white px-6 shadow-sm z-10">
         <div className="flex items-center gap-3">
           <div className="bg-blue-600 p-1.5 rounded-lg text-white">
@@ -129,7 +137,7 @@ function FlowEditor() {
           </div>
           <div>
             <h1 className="text-sm font-bold tracking-tight text-slate-800 leading-none">AUTOMATION V1.0</h1>
-            <p className="text-[10px] text-slate-400 font-medium mt-1 uppercase tracking-tighter text-center">Workflow Orchestrator</p>
+            <p className="text-[10px] text-slate-400 font-medium mt-1 uppercase tracking-tighter">Workflow Orchestrator</p>
           </div>
         </div>
         
@@ -147,8 +155,7 @@ function FlowEditor() {
       </header>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar Kiri: Library */}
-        <aside className="w-64 border-r bg-white p-5 flex flex-col gap-6 shadow-[1px_0_10px_rgba(0,0,0,0.02)]">
+        <aside className="w-64 border-r bg-white p-5 flex flex-col gap-6">
           <div>
             <h2 className="mb-4 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Node Library</h2>
             <div className="space-y-3">
@@ -181,7 +188,6 @@ function FlowEditor() {
           </div>
         </aside>
 
-        {/* Canvas */}
         <main className="flex-1 relative bg-[#f8fafc]">
           <ReactFlow
             nodes={nodes}
@@ -196,7 +202,6 @@ function FlowEditor() {
             snapToGrid
             snapGrid={[15, 15]}
           >
-            {/* Perbaikan Utama: Menggunakan BackgroundVariant.Dots */}
             <Background 
               color="#e2e8f0" 
               gap={30} 
@@ -210,18 +215,18 @@ function FlowEditor() {
           </ReactFlow>
         </main>
 
-        {/* Sidebar Kanan: Configuration */}
-        <aside className="w-80 border-l bg-white p-6 overflow-y-auto shadow-[-1px_0_10px_rgba(0,0,0,0.02)] z-10">
+        <aside className="w-80 border-l bg-white p-6 overflow-y-auto">
           <h2 className="mb-6 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">Configuration</h2>
           
           {selectedNode ? (
-            <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+            <div className="space-y-6">
               <div className="space-y-2">
                 <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">Display Name</label>
                 <input 
                   type="text" 
                   className="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all shadow-sm"
-                  value={selectedNode.data.label || ''} 
+                  // 3. Tambahkan "as string" untuk memastikan tipe datanya benar
+                  value={(selectedNode.data.label as string) || ''} 
                   onChange={(e) => handleLabelChange(e.target.value)}
                 />
               </div>
@@ -233,7 +238,7 @@ function FlowEditor() {
                     type="text" 
                     className="w-full px-4 py-2 bg-amber-50/30 border border-amber-100 rounded-lg text-sm font-mono outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition-all shadow-sm"
                     placeholder="* * * * *"
-                    value={selectedNode.data.config?.cron || ''} 
+                    value={(selectedNode.data.config?.cron as string) || ''} 
                     onChange={(e) => handleConfigChange('cron', e.target.value)}
                   />
                 </div>
@@ -243,9 +248,9 @@ function FlowEditor() {
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-blue-600 uppercase tracking-wide">Execution Script</label>
                   <textarea 
-                    className="w-full px-4 py-2 bg-blue-50/30 border border-blue-100 rounded-lg text-sm font-mono outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all h-40 resize-none shadow-sm text-left"
+                    className="w-full px-4 py-2 bg-blue-50/30 border border-blue-100 rounded-lg text-sm font-mono outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all h-40 resize-none shadow-sm"
                     placeholder="#!/bin/bash..."
-                    value={selectedNode.data.config?.command || ''} 
+                    value={(selectedNode.data.config?.command as string) || ''} 
                     onChange={(e) => handleConfigChange('command', e.target.value)}
                   />
                 </div>
