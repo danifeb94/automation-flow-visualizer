@@ -35,7 +35,7 @@ Sebagai seorang **Automation Developer** sejak November 2016, saya merancang ala
 
 1.  **Clone repositori**:
     ```bash
-    git clone [https://github.com/username_kamu/automation-visualizer.git](https://github.com/username_kamu/automation-visualizer.git)
+    git clone [https://github.com/danifeb94/automation-visualizer.git](https://github.com/danifeb94/automation-visualizer.git)
     ```
 
 2.  **Instal dependensi**:
@@ -49,7 +49,7 @@ Sebagai seorang **Automation Developer** sejak November 2016, saya merancang ala
     ```
 
 4.  **Akses aplikasi**:
-    Buka [http://localhost:3000](http://localhost:3000) di browser Anda.
+    Buka [http://localhost:3001](http://localhost:3001) di browser Anda.
 
 ---    
 ![Test Success](image.png)
