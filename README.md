@@ -56,13 +56,11 @@ Sebagai seorang **Automation Developer** yang telah berkarier sejak November 201
     Buka [http://localhost:3001](http://localhost:3001) di browser Anda.
 
 ---
-
+![Test Success](image.png)
+---
 ## 💡 Mengapa Proyek Ini Dibuat?
 
 Proyek ini merupakan solusi untuk mengotomatiskan tugas-tugas repetitif—yang merupakan minat utama saya sebagai pengembang otomasi. Baik itu mengelola router **OpenWrt**, mengeksekusi perintah **SSH** pada server jarak jauh, atau memantau kesehatan jaringan melalui query data, visualizer ini menyediakan struktur data yang dibutuhkan untuk otomasi yang andal.
-
-## 📬 Mari Terhubung!
-Saat ini saya sedang mencari peluang baru sebagai **Automation Developer** di mana saya dapat mengkontribusikan pengalaman saya selama 9 tahun lebih dalam bidang scripting, manajemen database, dan administrasi sistem untuk membangun solusi yang berdampak besar.
 
 ---
 *Dikembangkan dengan ❤️ oleh Dani.*
