@@ -2,8 +2,12 @@
 
 Alat orkestrasi alur kerja (workflow) berbasis web yang interaktif, dirancang untuk menjembatani desain logika visual dengan eksekusi otomasi pada sistem backend.
 
+**🌐 Live Demo:** [automation-flow-visualizer-vercel.app](https://automation-flow-visualizer-3n8e-dceag9v36-danifeb94s-projects.vercel.app/)
+
+---
+
 ## 👨‍💻 Dikembangkan oleh Dani
-Sebagai seorang **Automation Developer** sejak November 2016, saya merancang alat ini untuk menyederhanakan proses orkestrasi alur kerja yang kompleks. Proyek ini merefleksikan pengalaman profesional saya dalam menangani sistem seperti **BMC Atrium Orchestrator** serta latar belakang teknis saya di bidang networking dan scripting.
+Sebagai seorang **Automation Developer** yang telah berkarier sejak November 2016, saya membangun alat ini untuk menyederhanakan proses orkestrasi alur kerja yang kompleks. Proyek ini merefleksikan pengalaman profesional saya dalam menangani sistem seperti **BMC Atrium Orchestrator** serta latar belakang teknis saya di bidang networking dan scripting.
 
 ---
 
@@ -31,11 +35,11 @@ Sebagai seorang **Automation Developer** sejak November 2016, saya merancang ala
 
 ---
 
-## 🚀 Cara Menjalankan Proyek
+## 🚀 Cara Menjalankan Proyek Secara Lokal
 
 1.  **Clone repositori**:
     ```bash
-    git clone [https://github.com/danifeb94/automation-visualizer.git](https://github.com/danifeb94/automation-visualizer.git)
+    git clone [https://github.com/danifeb94/automation-flow-visualizer.git](https://github.com/danifeb94/automation-flow-visualizer.git)
     ```
 
 2.  **Instal dependensi**:
@@ -51,12 +55,14 @@ Sebagai seorang **Automation Developer** sejak November 2016, saya merancang ala
 4.  **Akses aplikasi**:
     Buka [http://localhost:3001](http://localhost:3001) di browser Anda.
 
----    
-![Test Success](image.png)
 ---
 
 ## 💡 Mengapa Proyek Ini Dibuat?
 
-Proyek ini lebih dari sekadar antarmuka visual; ini adalah solusi untuk mengotomatiskan tugas-tugas repetitif—yang merupakan minat utama saya. Baik itu mengelola router **OpenWrt**, mengeksekusi perintah **SSH** pada server jarak jauh, atau memantau kesehatan jaringan, visualizer ini menyediakan struktur yang dibutuhkan untuk otomasi yang andal.
+Proyek ini merupakan solusi untuk mengotomatiskan tugas-tugas repetitif—yang merupakan minat utama saya sebagai pengembang otomasi. Baik itu mengelola router **OpenWrt**, mengeksekusi perintah **SSH** pada server jarak jauh, atau memantau kesehatan jaringan melalui query data, visualizer ini menyediakan struktur data yang dibutuhkan untuk otomasi yang andal.
+
+## 📬 Mari Terhubung!
+Saat ini saya sedang mencari peluang baru sebagai **Automation Developer** di mana saya dapat mengkontribusikan pengalaman saya selama 9 tahun lebih dalam bidang scripting, manajemen database, dan administrasi sistem untuk membangun solusi yang berdampak besar.
 
 ---
+*Dikembangkan dengan ❤️ oleh Dani.*
