@@ -62,5 +62,3 @@ Sebagai seorang **Automation Developer** yang telah berkarier sejak November 201
 
 Proyek ini merupakan solusi untuk mengotomatiskan tugas-tugas repetitif—yang merupakan minat utama saya sebagai pengembang otomasi. Baik itu mengelola router **OpenWrt**, mengeksekusi perintah **SSH** pada server jarak jauh, atau memantau kesehatan jaringan melalui query data, visualizer ini menyediakan struktur data yang dibutuhkan untuk otomasi yang andal.
 
----
-*Dikembangkan dengan ❤️ oleh Dani.*
