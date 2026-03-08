@@ -2,7 +2,7 @@
 
 Alat orkestrasi alur kerja visual tingkat lanjut untuk membangun logika otomasi kompleks dengan antarmuka modern yang mendukung tema Gelap dan Terang.
 
-**🌐 Live Demo:** [Buka Aplikasi di Vercel](https://automation-flow-visualizer-3n8e-dceag9v36-danifeb94s-projects.vercel.app/)
+**🌐 Live Demo:** [Buka Aplikasi di Vercel](https://automation-flow-visualizer-3n8e.vercel.app/)
 
 ---
 
