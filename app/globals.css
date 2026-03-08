@@ -12,15 +12,46 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@custom-variant dark (&:is(.dark, .dark *));
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* React Flow Built-in Controls Dark Mode Fix */
+.dark .react-flow__controls-button {
+  background-color: #1e293b !important;
+  border-bottom-color: #334155 !important;
+}
+
+.dark .react-flow__controls-button:hover {
+  background-color: #334155 !important;
+}
+
+.dark .react-flow__controls-button svg {
+  fill: #cbd5e1 !important;
+}
+
+/* Fallback for Default React Flow Nodes in Dark Mode */
+.dark .react-flow__node-input,
+.dark .react-flow__node-default,
+.dark .react-flow__node-output {
+  background-color: #1e293b;
+  color: #f8fafc;
+  border-color: #334155;
+}
+
+.dark .react-flow__node-input.selected,
+.dark .react-flow__node-default.selected,
+.dark .react-flow__node-output.selected {
+  border-color: #6366f1;
+  /* indigo-500 */
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4);
 }
