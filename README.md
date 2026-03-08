@@ -7,15 +7,23 @@ Alat orkestrasi alur kerja visual tingkat lanjut untuk membangun logika otomasi 
 ---
 
 ## 👨‍💻 Tentang Pengembang
-Saya adalah **Dani**, seorang **Automation Developer** yang telah berkarier sejak November 2016. Proyek ini merefleksikan pengalaman saya selama 9 tahun lebih dalam menangani sistem orkestrasi profesional.
+Saya adalah seorang **Automation Developer** yang telah berkarier sejak November 2016. Proyek ini merefleksikan pengalaman saya selama 9 tahun lebih dalam menangani sistem orkestrasi profesional.
 
 ---
 
 ## 📸 Pratinjau Antarmuka
 
-| Dark Mode Version | Light Mode Version |
-| :--- | :--- |
-| ![Dark Mode](assets/dark-mode.jpg) | ![Light Mode](assets/light-mode.jpg) |
+Aplikasi ini dilengkapi dengan fitur alih tema (toggle theme) untuk mendukung kenyamanan pengguna di berbagai lingkungan kerja.
+
+### 🌑 Dark Mode (V1.0 Pro)
+![Dark Mode Version](assets/dark-mode.jpg)
+*Tampilan orkestrasi alur kerja dengan tema gelap yang fokus dan modern.*
+
+---
+
+### ☀️ Light Mode Version
+![Light Mode Version](assets/light-mode.jpg)
+*Tampilan bersih dan cerah untuk visibilitas maksimal di siang hari.*
 
 ---
 
